@@ -83,7 +83,7 @@ const workerFormRoutes = require("./routes/WorkerForm");
 
 const reviewRoutes = require("./routes/reviews");
 const orderRoutes = require("./routes/orders");
-const stripeRoutes = require("./routes/stripe");
+
 
 // Use the routes with prefixed paths
 app.use("/api/auth", authRoutes);
@@ -92,7 +92,7 @@ app.use("/api/worker-form", workerFormRoutes);
 
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
-app.use("/api", stripeRoutes);
+
 
 // Health-check endpoint for quick server status
 app.get('/health', (req, res) => {
@@ -125,7 +125,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start the server and listen on port 5003 explicitly to avoid conflicts with the Stripe server
+// Start the server on port 5003
 const PORT = 5003;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT} - http://localhost:${PORT}`);

@@ -38,7 +38,7 @@ const OrderSchema = new mongoose.Schema({
       itemType: {
         type: String,
         required: true,
-        enum: ['Worker', 'ConcertTicket', 'TheaterTicket', 'SportsTicket', 'FestivalsTicket']
+        enum: ['Worker']
       },
       name: String,
       price: Number,
@@ -96,15 +96,14 @@ const OrderSchema = new mongoose.Schema({
   // Payment status
   paymentStatus: {
     type: String,
-    enum: ['pending', 'completed', 'failed', 'refunded'],
-    default: 'pending'
+    enum: ['not_required', 'pending', 'completed', 'failed'],
+    default: 'not_required'
   },
   paymentMethod: {
     type: String,
-    enum: ['stripe', 'cash', 'other'],
-    default: 'stripe'
+    enum: ['cash', 'other'],
+    default: 'other'
   },
-  stripeSessionId: String,
   // Order status
   status: {
     type: String,
@@ -123,7 +122,7 @@ const OrderSchema = new mongoose.Schema({
 });
 
 // Update the updatedAt timestamp before saving
-OrderSchema.pre('save', function(next) {
+OrderSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });

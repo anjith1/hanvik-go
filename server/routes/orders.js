@@ -258,25 +258,15 @@ router.put('/:id/status', async (req, res) => {
 // Update payment status
 router.patch('/:id/payment', async (req, res) => {
   try {
-    const { paymentStatus, stripeSessionId } = req.body;
+    const { paymentStatus } = req.body;
 
     if (!paymentStatus) {
       return res.status(400).json({ error: 'Payment status is required' });
     }
 
-    const updateData = {
-      paymentStatus,
-      updatedAt: Date.now()
-    };
-
-    // Add stripeSessionId if provided
-    if (stripeSessionId) {
-      updateData.stripeSessionId = stripeSessionId;
-    }
-
     const order = await Order.findByIdAndUpdate(
       req.params.id,
-      updateData,
+      { paymentStatus, updatedAt: Date.now() },
       { new: true }
     );
 
