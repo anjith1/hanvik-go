@@ -2,8 +2,70 @@ const express = require('express');
 const router = express.Router();
 const { Order, workerConnection } = require('../db');
 const authenticateWorker = require('../middleware/workerAuth');
+const authenticateUser = require('../middleware/userAuth');
 const createWorkerModel = require('../models/Worker');
 const Worker = createWorkerModel(workerConnection);
+
+// ─── DIRECT BOOKING (no Cart, no Stripe) ────────────────────────────────────
+// POST /api/orders/direct — requires user JWT via Authorization header
+router.post('/direct', authenticateUser, async (req, res) => {
+  try {
+    const {
+      workerId,
+      workerName,
+      workerCostPerHour,
+      selectedDate,
+      selectedTimeSlot,
+      location,
+      contactInfo
+    } = req.body;
+
+    // Validate required fields
+    if (!workerId || !selectedDate || !selectedTimeSlot || !location) {
+      return res.status(400).json({ error: 'workerId, selectedDate, selectedTimeSlot, and location are required.' });
+    }
+    if (!contactInfo || !contactInfo.fullName || !contactInfo.mobileNumber || !contactInfo.email) {
+      return res.status(400).json({ error: 'contactInfo (fullName, mobileNumber, email) is required.' });
+    }
+
+    const price = Number(workerCostPerHour) || 1000;
+
+    const newOrder = new Order({
+      user: req.userId,
+      contactInfo,
+      items: [{
+        itemId: workerId,
+        itemType: 'Worker',
+        name: workerName || 'Service',
+        price,
+        quantity: 1,
+        fees: 0
+      }],
+      location,
+      date: new Date(selectedDate),
+      timeSlots: [selectedTimeSlot],
+      subtotal: price,
+      deliveryFee: 0,
+      platformFee: 0,
+      discount: 0,
+      tax: 0,
+      total: price,
+      paymentStatus: 'completed',
+      paymentMethod: 'other',
+      status: 'pending'
+    });
+
+    const savedOrder = await newOrder.save();
+    console.log('✅ Direct booking created:', savedOrder._id);
+    return res.status(201).json(savedOrder);
+  } catch (error) {
+    console.error('Error creating direct order:', error);
+    return res.status(500).json({ error: error.message || 'Failed to create booking.' });
+  }
+});
+// ─────────────────────────────────────────────────────────────────────────────
+
+
 
 // Create a new order
 router.post('/', async (req, res) => {
@@ -85,36 +147,36 @@ router.get('/worker', authenticateWorker, async (req, res) => {
     const workerId = req.workerId;
     console.log('=== WORKER DEBUG ===');
     console.log('Worker ID from token:', workerId);
-    
+
     // Get worker details from workers cluster
     const worker = await Worker.findById(workerId);
     console.log('Worker found:', worker ? worker.username : 'NOT FOUND');
-    
+
     if (!worker) {
       return res.status(404).json({ error: 'Worker not found' });
     }
-    
+
     // Check all orders first
     const allOrders = await Order.find({});
     console.log('Total orders in database:', allOrders.length);
-    
+
     const pendingOrders = await Order.find({ status: 'pending' });
     console.log('Pending orders:', pendingOrders.length);
-    
+
     if (pendingOrders.length > 0) {
       console.log('First pending order items:', pendingOrders[0].items);
     }
-    
+
     // Find orders where worker name matches
     const orders = await Order.find({
       'items.name': worker.username,
       'items.itemType': 'Worker',
       'status': 'pending'
     }).sort({ createdAt: -1 });
-    
+
     console.log('Orders found for', worker.username, ':', orders.length);
     console.log('=== END DEBUG ===');
-    
+
     res.json(orders);
   } catch (error) {
     console.error('Error fetching worker orders:', error);
@@ -126,11 +188,11 @@ router.get('/worker', authenticateWorker, async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
-    
+
     if (!order) {
       return res.status(404).json({ error: 'Order not found' });
     }
-    
+
     res.json(order);
   } catch (error) {
     console.error('Error fetching order:', error);
@@ -143,22 +205,22 @@ router.patch('/:id/status', async (req, res) => {
   try {
     const { status } = req.body;
     console.log('Updating order', req.params.id, 'to status:', status);
-    
+
     if (!status) {
       return res.status(400).json({ error: 'Status is required' });
     }
-    
+
     const order = await Order.findByIdAndUpdate(
       req.params.id,
       { status, updatedAt: Date.now() },
       { new: true }
     );
-    
+
     if (!order) {
       console.log('Order not found:', req.params.id);
       return res.status(404).json({ error: 'Order not found' });
     }
-    
+
     console.log('Order updated successfully');
     res.json(order);
   } catch (error) {
@@ -171,21 +233,21 @@ router.patch('/:id/status', async (req, res) => {
 router.put('/:id/status', async (req, res) => {
   try {
     const { status } = req.body;
-    
+
     if (!status) {
       return res.status(400).json({ error: 'Status is required' });
     }
-    
+
     const order = await Order.findByIdAndUpdate(
       req.params.id,
       { status, updatedAt: Date.now() },
       { new: true }
     );
-    
+
     if (!order) {
       return res.status(404).json({ error: 'Order not found' });
     }
-    
+
     res.json(order);
   } catch (error) {
     console.error('Error updating order status:', error);
@@ -197,31 +259,31 @@ router.put('/:id/status', async (req, res) => {
 router.patch('/:id/payment', async (req, res) => {
   try {
     const { paymentStatus, stripeSessionId } = req.body;
-    
+
     if (!paymentStatus) {
       return res.status(400).json({ error: 'Payment status is required' });
     }
-    
-    const updateData = { 
-      paymentStatus, 
-      updatedAt: Date.now() 
+
+    const updateData = {
+      paymentStatus,
+      updatedAt: Date.now()
     };
-    
+
     // Add stripeSessionId if provided
     if (stripeSessionId) {
       updateData.stripeSessionId = stripeSessionId;
     }
-    
+
     const order = await Order.findByIdAndUpdate(
       req.params.id,
       updateData,
       { new: true }
     );
-    
+
     if (!order) {
       return res.status(404).json({ error: 'Order not found' });
     }
-    
+
     res.json(order);
   } catch (error) {
     console.error('Error updating payment status:', error);

@@ -32,19 +32,8 @@ workerConnection.on("error", (err) => {
   console.error("Worker MongoDB connection error:", err);
 });
 
-// Connect to "Form" DB for ticket data
-const ticketConnection = mongoose.createConnection(process.env.MONGO_URI_TICKETS || process.env.MONGO_URI_WORKERS, connectionOptions);
-
-ticketConnection.on("connected", () => {
-  console.log("Ticket MongoDB connected (Form DB)");
-});
-
-ticketConnection.on("error", (err) => {
-  console.error("Ticket MongoDB connection error:", err);
-});
-
 // Create models using the correct connections
 const OrderSchema = require('./models/Order');
 const Order = userConnection.model('Order', OrderSchema);
 
-module.exports = { userConnection, workerConnection, ticketConnection, Order };
+module.exports = { userConnection, workerConnection, Order };

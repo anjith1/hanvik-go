@@ -12,7 +12,7 @@ const app = express();
 //   - Allows 'https://your-production-domain.com' and 'http://localhost:5173'.
 // - Also explicitly limits the HTTP methods.
 app.use(cors({
-  origin: function(origin, callback) {
+  origin: function (origin, callback) {
     // Allow requests with no origin (e.g., mobile apps, curl requests)
     if (!origin) return callback(null, true);
 
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
     const duration = new Date() - startTime;
     console.log(`📤 ${req.method} ${req.originalUrl} - ${res.statusCode} - ${duration}ms`);
   });
-  
+
   next();
 });
 
@@ -80,7 +80,7 @@ if (!fs.existsSync(uploadsDir)) {
 const authRoutes = require("./routes/auth");
 const workerAuthRoutes = require("./routes/workerAuth");
 const workerFormRoutes = require("./routes/WorkerForm");
-const ticketRoutes = require("./routes/tickets");
+
 const reviewRoutes = require("./routes/reviews");
 const orderRoutes = require("./routes/orders");
 const stripeRoutes = require("./routes/stripe");
@@ -89,7 +89,7 @@ const stripeRoutes = require("./routes/stripe");
 app.use("/api/auth", authRoutes);
 app.use("/api/worker-auth", workerAuthRoutes);
 app.use("/api/worker-form", workerFormRoutes);
-app.use("/api/tickets", ticketRoutes);
+
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api", stripeRoutes);

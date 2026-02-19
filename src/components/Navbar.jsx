@@ -2,13 +2,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
-import { CartContext } from './CartContext';
-import { FaShoppingCart } from 'react-icons/fa';
-import GamesMenu from './games/GamesMenu';
+
 
 const Navbar = () => {
   const { isAuthenticated, logout } = useContext(AuthContext);
-  const { cartItems } = useContext(CartContext); // get cart items from context
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -38,14 +35,14 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
-        
+
         {/* Logo */}
         <div className="navbar-logo">
           <NavLink to="/" onClick={closeMenu}>
             Service Hub
           </NavLink>
         </div>
-        
+
         {/* Menu items */}
         <div className={`navbar-menu ${menuOpen ? 'active' : ''}`}>
           <NavLink
@@ -81,13 +78,7 @@ const Navbar = () => {
             Services
           </NavLink>
 
-          <NavLink
-            to="/tickets"
-            className={({ isActive }) => (isActive ? 'nav-item active' : 'nav-item')}
-            onClick={closeMenu}
-          >
-            Events
-          </NavLink>
+
 
           {/* Reviews - Dropdown */}
           <div className="nav-dropdown">
@@ -104,15 +95,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Cart Link with Icon */}
-          <NavLink
-            to="/cart"
-            className={({ isActive }) => (isActive ? 'nav-item active' : 'nav-item')}
-            onClick={closeMenu}
-          >
-            <FaShoppingCart style={{ fontSize: '1.2rem' }} />
-            {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
-          </NavLink>
+
 
           {/* Authentication */}
           {isAuthenticated ? (
@@ -137,12 +120,9 @@ const Navbar = () => {
             Contact
           </NavLink>
 
-          {/* Games Menu */}
-          <div className="nav-item">
-            <GamesMenu />
-          </div>
+
         </div>
-        
+
         {/* Mobile Toggle */}
         <div className={`navbar-toggle ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
           <span className="bar"></span>
