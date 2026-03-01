@@ -1,0 +1,31 @@
+[
+  {
+    "_id": "1754772682545",
+    "customer": {
+      "name": "Test User",
+      "phone": "+1-555-TEST-123",
+      "email": "test@example.com"
+    },
+    "location": "123 Test Street, Test City",
+    "date": "2024-12-25",
+    "timeSlots": [
+      "10:00 AM - 11:00 AM"
+    ],
+    "items": [
+      {
+        "name": "AC Repair Service",
+        "price": 150,
+        "quantity": 1
+      }
+    ],
+    "serviceCategory": "AC Repair",
+    "subtotal": 150,
+    "deliveryFee": 35,
+    "platformFee": 10,
+    "tax": 25.35,
+    "total": 220.35,
+    "promoCode": "TEST",
+    "createdAt": "2025-08-09T20:51:22.545Z",
+    "status": "pending"
+  }
+]

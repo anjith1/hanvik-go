@@ -1,0 +1,506 @@
+/* LoginPage.css - Ultimate Colorful Animated Background */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Main container with cosmic gradient */
+.login-container {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  padding: 2rem 1rem;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* ====================== */
+/* COLORFUL BACKGROUND ANIMATIONS */
+/* ====================== */
+
+/* Floating Gradient Bubbles */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.7;
+  animation: floatBubble 15s infinite linear;
+  z-index: 1;
+}
+
+.bubble:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #ff00ff, transparent 70%);
+  top: 20%;
+  left: 10%;
+  animation-duration: 20s;
+}
+
+.bubble:nth-child(2) {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #00ffff, transparent 70%);
+  top: 60%;
+  left: 70%;
+  animation-duration: 25s;
+  animation-delay: 5s;
+}
+
+.bubble:nth-child(3) {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #ffff00, transparent 70%);
+  top: 30%;
+  left: 50%;
+  animation-duration: 30s;
+  animation-delay: 10s;
+}
+
+@keyframes floatBubble {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(50px, 50px);
+  }
+  50% {
+    transform: translate(100px, -50px);
+  }
+  75% {
+    transform: translate(-50px, 50px);
+  }
+}
+
+/* Colorful Particles */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: floatParticle 15s infinite linear;
+  z-index: 1;
+}
+
+.particle:nth-child(4) {
+  width: 10px;
+  height: 10px;
+  background: #ff00ff;
+  top: 10%;
+  left: 20%;
+  animation-duration: 12s;
+}
+
+.particle:nth-child(5) {
+  width: 15px;
+  height: 15px;
+  background: #00ffff;
+  top: 70%;
+  left: 80%;
+  animation-duration: 18s;
+  animation-delay: 3s;
+}
+
+.particle:nth-child(6) {
+  width: 8px;
+  height: 8px;
+  background: #ffff00;
+  top: 40%;
+  left: 60%;
+  animation-duration: 15s;
+  animation-delay: 7s;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100px, -100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Colorful Wave Animation */
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100px;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23ff00ff" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%2300ffff" opacity=".25"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23ffff00" opacity=".25"/></svg>');
+  animation: wave 10s linear infinite;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.wave:nth-child(7) {
+  animation-delay: -5s;
+  bottom: 10px;
+  opacity: 0.5;
+}
+
+.wave:nth-child(8) {
+  animation-delay: -2s;
+  bottom: 15px;
+  opacity: 0.3;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Colorful Grid Animation */
+.grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  animation: gridMove 20s linear infinite;
+  z-index: 1;
+}
+
+@keyframes gridMove {
+  0% {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  }
+}
+
+/* ====================== */
+/* LOGIN FORM STYLING */
+/* ====================== */
+
+.login-heading {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  to {
+    text-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff, 0 0 40px #ffff00;
+  }
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.switch-label {
+  font-size: 1rem;
+  margin: 0 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.switch-label.active {
+  color: #ffffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin: 0 1rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: 0.4s;
+  border-radius: 34px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  bottom: 4px;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  transition: 0.4s;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .slider {
+  background: linear-gradient(145deg, #ff00ff, #00ffff);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 500px;
+  height: 550px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding-bottom: 1rem;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+@keyframes floatCard {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.flip-container {
+  perspective: 1000px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.flipper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flipper.flipped {
+  transform: rotateY(180deg);
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  top: 0;
+  left: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.card-title {
+  margin: 1rem 0 2rem;
+  font-size: 1.8rem;
+  text-transform: capitalize;
+  text-align: center;
+  color: #ffffff;
+  position: relative;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.card-title:after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, #ff00ff, #00ffff);
+  margin: 0.5rem auto 0;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.card-body {
+  padding: 0 1.5rem;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.input-field {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #000000;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.input-field::placeholder {
+  color: black;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #00ffff;
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+  background-color: rgba(0, 255, 255, 0.1);
+}
+
+.input-focus-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #ff00ff, #00ffff);
+  transition: width 0.4s ease;
+}
+
+.input-field:focus ~ .input-focus-border {
+  width: 100%;
+}
+
+.btn {
+  position: relative;
+  background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%);
+  color: #ffffff;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  z-index: 1;
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 0, 255, 0.4);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn:hover:before {
+  left: 100%;
+}
+
+.forgot-password {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: #00ffff;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .login-card {
+    width: 90%;
+    height: auto;
+    min-height: 500px;
+  }
+  
+  .login-heading {
+    font-size: 2rem;
+  }
+  
+  .bubble {
+    display: none;
+  }
+}
+
+.background-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  object-fit: cover;
+}
+
+.content-overlay {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
